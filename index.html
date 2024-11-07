@@ -14,6 +14,7 @@
 
     <style>
         #map { height: 500px; width: 100%; }
+        #clearFilterButton { display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -21,6 +22,9 @@
     <label><input type="radio" name="filter" id="candy" value="Giving out candy only"> Giving out candy only</label>
     <label><input type="radio" name="filter" id="decorations" value="Has decorations only"> Has decorations only</label>
     <label><input type="radio" name="filter" id="candyDecorations" value="Giving out candy and has decorations"> Giving out candy and has decorations</label>
+
+    <button id="clearFilterButton" onclick="clearFilter()">Clear filter</button>
+
     <div id="map"></div>
 
     <script>
@@ -99,6 +103,25 @@
                     marker.remove();
                 }
             });
+
+            // Show or hide the "Clear filter" button based on filter selection
+            if (selectedFilter) {
+                document.getElementById('clearFilterButton').style.display = 'inline-block';
+            } else {
+                document.getElementById('clearFilterButton').style.display = 'none';
+            }
+        }
+
+        // Clear the filter and show all markers
+        function clearFilter() {
+            // Unselect all radio buttons
+            document.querySelectorAll('input[name="filter"]').forEach(radio => radio.checked = false);
+
+            // Show all markers again
+            markers.forEach(marker => marker.addTo(map));
+
+            // Hide the "Clear filter" button
+            document.getElementById('clearFilterButton').style.display = 'none';
         }
 
         // Event listeners for filter radio buttons
