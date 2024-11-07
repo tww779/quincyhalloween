@@ -85,14 +85,13 @@
                 let shouldDisplay = true;
 
                 // Filter markers based on selected filter
-                if (selectedFilter === "Giving out candy only" && !marker.category.includes("Giving out candy")) {
+                if (selectedFilter === "Giving out candy only" && !marker.category.includes("Giving out candy") && !marker.category.includes("Giving out candy and has decorations")) {
                     shouldDisplay = false;
                 }
                 if (selectedFilter === "Has decorations only" && !marker.category.includes("Has decorations")) {
                     shouldDisplay = false;
                 }
-                if (selectedFilter === "Giving out candy and has decorations" &&
-                    (!marker.category.includes("Giving out candy") || !marker.category.includes("Has decorations"))) {
+                if (selectedFilter === "Giving out candy and has decorations" && !marker.category.includes("Giving out candy and has decorations")) {
                     shouldDisplay = false;
                 }
 
