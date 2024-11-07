@@ -44,6 +44,8 @@
                   const response = await fetch("https://script.google.com/macros/s/AKfycbxNZlY67O-7NH16jJSBK6k-z5esYqujtXA8vfARtU2__WL7Xv0ljvS22sP995Pz50Xk/exec" + '?t=' + new Date().getTime());
                   const data = await response.json();
 
+                  console.log("Fetched data:", data); // Log data to confirm it's loading
+
                   data.forEach(place => {
                       console.log("Place data:", place); // Log each place's data for debugging
 
@@ -54,9 +56,9 @@
                       if (!isNaN(lat) && !isNaN(lng)) {
                           const marker = L.marker([lat, lng])
                               .addTo(map)
-                              .bindPopup(`${place.address} - ${place.Type}`);
+                              .bindPopup(`${place["Address (Only enter your building number and street name. For example: 1 Quarry St)"]} - ${place.Activities}`);
 
-                          marker.category = place.Type; // Store marker category for filtering
+                          marker.category = place.Activities; // Store marker category for filtering
                           markers.push(marker);
                       } else {
                           console.warn("Skipping marker due to invalid coordinates:", place);
