@@ -18,8 +18,9 @@
 </head>
 <body>
     <h3>Halloween Neighborhood Map</h3>
-    <label><input type="checkbox" id="candy" checked> Giving out candy</label>
-    <label><input type="checkbox" id="decorations" checked> Has decorations</label>
+    <label><input type="radio" name="filter" id="candy" value="Giving out candy only"> Giving out candy only</label>
+    <label><input type="radio" name="filter" id="decorations" value="Has decorations only"> Has decorations only</label>
+    <label><input type="radio" name="filter" id="candyDecorations" value="Giving out candy and has decorations"> Giving out candy and has decorations</label>
     <div id="map"></div>
 
     <script>
@@ -63,24 +64,36 @@
                     }
                 });
 
-                // Apply initial filters
+                // Initially show all markers
                 applyFilters();
+
             } catch (error) {
                 console.error("Failed to load markers:", error);
             }
         }
 
-        // Apply filters based on checkbox states
+        // Apply filters based on selected radio button
         function applyFilters() {
-            const candyChecked = document.getElementById('candy').checked;
-            const decorationsChecked = document.getElementById('decorations').checked;
+            // Get the selected filter value
+            const selectedFilter = document.querySelector('input[name="filter"]:checked')?.value;
 
             markers.forEach(marker => {
-                const isCandy = marker.category.includes("Giving out candy");
-                const isDecorations = marker.category.includes("Has decorations");
+                let shouldDisplay = true;
 
-                // Show marker only if it matches the filter criteria
-                if ((candyChecked && isCandy) || (decorationsChecked && isDecorations)) {
+                // Filter markers based on selected filter
+                if (selectedFilter === "Giving out candy only" && !marker.category.includes("Giving out candy")) {
+                    shouldDisplay = false;
+                }
+                if (selectedFilter === "Has decorations only" && !marker.category.includes("Has decorations")) {
+                    shouldDisplay = false;
+                }
+                if (selectedFilter === "Giving out candy and has decorations" &&
+                    (!marker.category.includes("Giving out candy") || !marker.category.includes("Has decorations"))) {
+                    shouldDisplay = false;
+                }
+
+                // Show or hide marker based on filter condition
+                if (shouldDisplay) {
                     marker.addTo(map);
                 } else {
                     marker.remove();
@@ -88,9 +101,10 @@
             });
         }
 
-        // Event listeners for filters (checkboxes)
-        document.getElementById('candy').addEventListener('change', applyFilters);
-        document.getElementById('decorations').addEventListener('change', applyFilters);
+        // Event listeners for filter radio buttons
+        document.querySelectorAll('input[name="filter"]').forEach(radioButton => {
+            radioButton.addEventListener('change', applyFilters);
+        });
     </script>
 </body>
 </html>
