@@ -9,9 +9,10 @@
   <html>
   <head>
       <title>Quincy MA's 2025 Halloween Tracker</title>
-      <!-- Leaflet CSS from cdnjs -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2m8A0mMsI5WzD64x68pTDGloD8j48ULk5t3K7lr1q4D9o5yMLGt+zwCcfYkfy0wJJQ4Q4L0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <style>
+      <!-- Leaflet CSS from cdnjs without integrity attribute -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+
+    <style>
           #map { height: 500px; width: 100%; }
       </style>
   </head>
@@ -21,8 +22,9 @@
       <label><input type="checkbox" id="decorations" checked> Has decorations</label>
       <div id="map"></div>
 
-      <!-- Leaflet JavaScript from cdnjs -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-MJeuqtjQcc2l6Abu4+5EU+5kkX4JmSV4RRDA8DQIJU51SmUH/EJ7v+fMJzQkxVZhEnpcVTuGSl6IjFuXYnwrwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!-- Leaflet JavaScript from cdnjs without integrity attribute -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+
       <script>
           // Initialize the map centered on Quincy, Massachusetts
           const map = L.map('map').setView([42.2529, -71.0023], 14); // Latitude, Longitude, and Zoom level
